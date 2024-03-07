@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - Online Store</title>
+
+    <script>
+        // Task 1: Alert the customer when they open the link
+        alert("Welcome to our online store!");
+
+        // Task 2: Prompt the customer for information
+        var customerName = window.prompt("Please enter your name:");
+        var itemRequested = window.prompt("What item would you like to order?");
+        var numberOfItems = parseInt(window.prompt("How many items would you like to order?"));
+
+        // Validate the quantity to be between 1 and 99
+        if (numberOfItems < 1 || numberOfItems > 99 || isNaN(numberOfItems)) {
+            alert("Invalid quantity. Please enter a quantity between 1 and 99.");
+        }
+    </script>
+</head>
+<body>
+
+    <h1>
+        <script>
+            var currentDate = new Date();
+            var currentHour = currentDate.getHours();
+            var greeting;
+
+            if (currentHour < 12) {
+                greeting = "Good morning";
+            } else if (currentHour < 18) {
+                greeting = "Good afternoon";
+            } else {
+                greeting = "Good evening";
+            }
+
+            document.write(greeting + " " + customerName + ", thank you for ordering!");
+        </script>
+    </h1>
+
+    <h3>Order Details:</h3>
+    <p>Name:
+        <script>
+            document.write(customerName);
+        </script>
+    </p>
+    <p>Item Requested:
+        <script>
+            document.write(itemRequested);
+        </script>
+    </p>
+    <p>Number of Items:
+        <script>
+            document.write(numberOfItems);
+        </script>
+    </p>
+
+    <h3>Expected Arrival Date:
+        <script>
+            currentDate.setDate(currentDate.getDate() + 7);
+            document.write(currentDate.toDateString());
+        </script>
+    </h3>
+
+</body>
+</html>
