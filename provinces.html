@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Provinces From ISO code</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <style>
+        body{
+            background-color: rgb(101, 186, 235);
+        }
+        .navbar-brand{
+            margin-left: 15px;
+        }
+        .container{
+            margin-left: 200px;
+            max-width: 1000px;
+        }
+        
+    </style>
+
+    <script>
+    async function fetchProvinces() {
+        let isoCode = document.getElementById('isoInput').value;
+        const url = `https://covid-19-statistics.p.rapidapi.com/provinces?iso=${isoCode}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '8ddf6d7067msh6f995a36a095180p10a9ebjsn1ed3502cc83a',
+                'X-RapidAPI-Host': 'covid-19-statistics.p.rapidapi.com'
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            const provinceTableBody = document.getElementById('provinceTableBody');
+            provinceTableBody.innerHTML = '';
+            result.data.forEach(province => {
+                const row = `<tr><td>${province.iso}</td><td>${province.name}</td><td>${province.province}</td><td>${province.lat}</td><td>${province.long}</td></tr>`;
+                provinceTableBody.innerHTML += row;
+            });
+        } catch (error) {
+            console.error(error);
+            alert("Failed to fetch data. Please check your input and try again.");
+        }
+    }
+    </script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CoronaWatch</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="homepage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="totalreports.html">Global Stats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="countryreport.html">Country Stats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="provinces.html">List of Provinces</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">List of Provinces</h1>
+        <label for="isoInput">Enter Country ISO Code:</label>
+        <input type="text" id="isoInput" placeholder="ISO Code">
+        <br>
+        <button class="btn btn-primary" onclick="fetchProvinces()">Fetch Provinces</button>
+        <br>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ISO Code</th>
+                        <th>Country Name</th>
+                        <th>Province</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>
+                </thead>
+                <tbody id="provinceTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+
+    <div class="container" >
+        
+        <hr>
+        <p> © 2024 - Mohammad Farid - CSC 225 - Final Project</p>
+    </div>
+    
+    
+</body>
+</html>
